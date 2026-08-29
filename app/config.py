@@ -58,6 +58,17 @@ class Settings(BaseSettings):
         alias="REDIS_URL",
     )
 
+    llm_model: str = Field(
+    default="gpt-5.6",
+    alias="LLM_MODEL",
+    )
+
+    llm_timeout_seconds: float = Field(
+        default=30.0,
+        gt=0,
+        alias="LLM_TIMEOUT_SECONDS",
+    )
+
 
 @lru_cache
 def get_settings() -> Settings:
