@@ -5,9 +5,12 @@ description = "AI-powered due diligence and decision intelligence platform"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [
-    { name = "Priyesh soni" }
+    { name = "Aegis Engineering Team" }
 ]
-dependencies = []
+dependencies = [
+    "pydantic>=2.0,<3.0",
+    "pydantic-settings>=2.0,<3.0",
+]
 
 [project.optional-dependencies]
 dev = [
