@@ -5,6 +5,7 @@ from typing import AsyncIterator
 from fastapi import FastAPI
 
 from app.api.routes.documents import router as documents_router
+from app.api.routes.retrieval import router as retrieval_router
 from app.core.config import get_settings
 from app.core.logging_config import configure_logging
 from app.db.database import initialize_database
@@ -25,11 +26,12 @@ app = FastAPI(
         "An AI platform for evidence-driven due diligence, "
         "hybrid retrieval, and decision intelligence."
     ),
-    version="0.2.0",
+    version="0.3.0",
     lifespan=lifespan,
 )
 
 app.include_router(documents_router)
+app.include_router(retrieval_router)
 
 
 @app.get("/", tags=["General"])

@@ -64,3 +64,41 @@ python -m ruff check .
 Never commit `.env` files, credentials, or private documents.
 Uploaded documents are stored as extracted text chunks in the local database.
 Only upload documents you are authorized to process.
+
+## Phase 3: Embeddings and Hybrid Retrieval
+
+Aegis converts stored document chunks into 384-dimensional embeddings
+using `sentence-transformers/all-MiniLM-L6-v2`.
+
+### Retrieval Architecture
+
+- Local embeddings: Sentence Transformers
+- Vector database: PostgreSQL + pgvector
+- Semantic retrieval: cosine-distance nearest-neighbor search
+- Keyword retrieval: PostgreSQL full-text search
+- Fusion: Reciprocal Rank Fusion (RRF)
+
+### Index a Document
+
+1. Upload a document using `POST /api/v1/documents`.
+2. Copy its returned document ID.
+3. Call `POST /api/v1/retrieval/index/{document_id}`.
+
+### Search
+
+Call `POST /api/v1/retrieval/search` with:
+
+```json
+{
+  "query": "What are the major technology risks?",
+  "top_k": 5
+}
+```
+
+The results contain the source filename, document ID, chunk content,
+and fusion score.
+
+### Cost
+
+Embeddings run locally. PostgreSQL uses a free-tier service where
+available. Free-tier quotas and availability may change.
