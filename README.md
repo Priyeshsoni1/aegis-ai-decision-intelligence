@@ -1,34 +1,25 @@
 # Aegis — AI Due Diligence & Decision Intelligence
 
-Aegis is a Python-based platform designed to research business
-and technology questions, retrieve internal evidence, and produce
-transparent, evidence-backed recommendations.
+Aegis is an evidence-driven AI platform for researching business and
+technology questions and producing transparent recommendations.
 
 ## Current Status
 
-Phase 1: Project foundation and FastAPI health endpoints.
+- Phase 1: FastAPI foundation and configuration.
+- Phase 2: Document ingestion, extraction, chunking, and SQLite storage.
 
 ## Technology Stack
 
-- Python 3.11+
-- FastAPI and Pydantic
-- Pydantic Settings
-- pytest and HTTPX
-- Ruff
+- Python, FastAPI, Pydantic
+- PyMuPDF for PDF text extraction
+- SQLite for local document metadata and chunks
+- pytest, HTTPX, Ruff
 - Git and GitHub
-
-## Prerequisites
-
-- Python 3.11+
-- Git
 
 ## Setup on Windows PowerShell
 
 ```powershell
-git clone <YOUR_GITHUB_REPOSITORY_URL>
-cd aegis-ai-decision-intelligence
-
-py -3.11 -m venv .venv
+python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 
 python -m pip install --upgrade pip
@@ -37,41 +28,39 @@ python -m pip install -e ".[dev]"
 Copy-Item .env.example .env
 ```
 
-If you have already created the project locally, skip the
-clone and cd commands.
-
-## Run the API
+## Run
 
 ```powershell
 uvicorn app.main:app --reload
 ```
 
-Open http://127.0.0.1:8000/docs for interactive API documentation.
+Open http://127.0.0.1:8000/docs to upload documents and explore the API.
 
-## Run Tests
+## API Endpoints
+
+- `GET /health` — API health
+- `POST /api/v1/documents` — upload PDF, TXT, or Markdown
+- `GET /api/v1/documents` — list document metadata
+- `GET /api/v1/documents/{document_id}` — document details
+- `GET /api/v1/documents/{document_id}/chunks` — inspect text chunks
+
+## Tests
 
 ```powershell
 python -m pytest
 python -m ruff check .
 ```
 
-## Planned Capabilities
+## Planned Next Steps
 
-1. Document ingestion and parsing
-2. Local embeddings and hybrid RAG
-3. External web research
-4. Stateful LangGraph agent
-5. Evidence validation and decision reports
-6. Reliability controls and execution limits
-7. Automated evaluation and tracing
-8. Docker packaging, CI/CD, and deployment
-
-## Cost Philosophy
-
-Use local embeddings, OpenRouter free models when available,
-and free-tier database and hosting services where practical.
-Free-tier availability and quotas may change.
+- Local embeddings and hybrid RAG
+- External web research
+- LangGraph agent orchestration
+- Evidence-backed decision reports
+- Reliability, evaluation, observability, and deployment
 
 ## Security
 
-Never commit .env files, passwords, or API keys.
+Never commit `.env` files, credentials, or private documents.
+Uploaded documents are stored as extracted text chunks in the local database.
+Only upload documents you are authorized to process.
