@@ -2,6 +2,7 @@
 import logging
 
 from pgvector import Vector
+from psycopg.rows import dict_row
 
 from app.db.database import get_connection
 from app.db.vector_store import (
@@ -129,8 +130,8 @@ def search_chunks(query: str, top_k: int = 5) -> list[dict]:
         LIMIT %s
     """
 
-    with get_pg_connection() as connection:
-        rows = connection.execute(
+    with get_pg_connection().cursor(row_factory=dict_row) as cursor:
+        rows = cursor.execute(
             sql,
             (
                 Vector(query_vector),

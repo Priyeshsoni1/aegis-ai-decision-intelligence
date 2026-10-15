@@ -4,7 +4,6 @@ from pathlib import PurePath
 
 import pymupdf
 
-
 SUPPORTED_EXTENSIONS = {".pdf", ".txt", ".md"}
 
 

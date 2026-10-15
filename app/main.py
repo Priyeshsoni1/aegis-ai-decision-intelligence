@@ -1,10 +1,11 @@
 
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from typing import AsyncIterator
 
 from fastapi import FastAPI
 
 from app.api.routes.documents import router as documents_router
+from app.api.routes.research import router as research_router
 from app.api.routes.retrieval import router as retrieval_router
 from app.core.config import get_settings
 from app.core.logging_config import configure_logging
@@ -32,7 +33,7 @@ app = FastAPI(
 
 app.include_router(documents_router)
 app.include_router(retrieval_router)
-
+app.include_router(research_router)
 
 @app.get("/", tags=["General"])
 async def root() -> dict[str, str]:

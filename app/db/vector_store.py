@@ -72,29 +72,32 @@ def upsert_chunks(records: list[dict]) -> None:
         return
 
     with get_pg_connection() as connection:
-        connection.executemany(
-            """
-            INSERT INTO aegis_chunks (
-                id, document_id, filename, chunk_index, content, embedding
-            )
-            VALUES (%s, %s, %s, %s, %s, %s)
-            ON CONFLICT (id) DO UPDATE SET
-                document_id = EXCLUDED.document_id,
-                filename = EXCLUDED.filename,
-                chunk_index = EXCLUDED.chunk_index,
-                content = EXCLUDED.content,
-                embedding = EXCLUDED.embedding,
-                indexed_at = NOW()
-            """,
-            [
-                (
-                    record["id"],
-                    record["document_id"],
-                    record["filename"],
-                    record["chunk_index"],
-                    record["content"],
-                    Vector(record["embedding"]),
+        with connection.cursor() as cursor:
+            cursor.executemany(
+                """
+                INSERT INTO aegis_chunks (
+                    id, document_id, filename, chunk_index, content, embedding
                 )
-                for record in records
-            ],
-        )
+                VALUES (%s, %s, %s, %s, %s, %s)
+                ON CONFLICT (id) DO UPDATE SET
+                    document_id = EXCLUDED.document_id,
+                    filename = EXCLUDED.filename,
+                    chunk_index = EXCLUDED.chunk_index,
+                    content = EXCLUDED.content,
+                    embedding = EXCLUDED.embedding,
+                    indexed_at = NOW()
+                """,
+                [
+                    (
+                        record["id"],
+                        record["document_id"],
+                        record["filename"],
+                        record["chunk_index"],
+                        record["content"],
+                        Vector(record["embedding"]),
+                    )
+                    for record in records
+                ],
+            )
+
+    logger.info("Stored %d chunks in PostgreSQL", len(records))

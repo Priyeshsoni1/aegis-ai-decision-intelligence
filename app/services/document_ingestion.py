@@ -2,7 +2,7 @@
 import hashlib
 import logging
 import sqlite3
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import uuid4
 
 from app.core.config import get_settings
@@ -35,7 +35,7 @@ def ingest_document(filename: str, content: bytes) -> dict:
 
     digest = hashlib.sha256(content).hexdigest()
     document_id = str(uuid4())
-    created_at = datetime.now(timezone.utc).isoformat()
+    created_at = datetime.now(UTC).isoformat()
     file_type = filename.rsplit(".", 1)[-1].lower()
 
     document = {
