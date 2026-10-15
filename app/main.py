@@ -3,7 +3,7 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-
+from app.api.routes.agent import router as agent_router
 from app.api.routes.documents import router as documents_router
 from app.api.routes.research import router as research_router
 from app.api.routes.retrieval import router as retrieval_router
@@ -34,6 +34,7 @@ app = FastAPI(
 app.include_router(documents_router)
 app.include_router(retrieval_router)
 app.include_router(research_router)
+app.include_router(agent_router)
 
 @app.get("/", tags=["General"])
 async def root() -> dict[str, str]:

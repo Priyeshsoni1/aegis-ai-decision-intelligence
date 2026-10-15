@@ -25,6 +25,8 @@ class Settings(BaseSettings):
     database_path: str = "data/aegis.db"
 
     database_url: str | None = None
+    openrouter_api_key: str | None = None
+    openrouter_model: str = "openai/gpt-oss-20b:free"
 
 
 @lru_cache(maxsize=1)
