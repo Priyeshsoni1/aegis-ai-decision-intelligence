@@ -1,0 +1,12 @@
+(.venv) PS C:\Users\priye\OneDrive\Desktop\aegis-ai-decision-intelligence> docker compose up -d
+>> docker compose ps
+>> docker compose logs --tail 100 aegis-api
+[+] up 4/4
+ ✔ Network aegis-ai-decision-intelligence_default          Created                                                                0.3s
+ ✔ Volume aegis-ai-decision-intelligence_aegis_data        Created                                                                0.1s
+ ✔ Volume aegis-ai-decision-intelligence_aegis_model_cache Created                                                                0.1s
+ ✔ Container aegis-ai-decision-intelligence-aegis-api-1    Started                                                                2.4s
+NAME                                         IMAGE                                  COMMAND                  SERVICE     CREATED   STATUS                            PORTS
+aegis-ai-decision-intelligence-aegis-api-1   aegis-ai-decision-intelligence:local   "uvicorn app.main:ap…"   aegis-api   4 seconds ago   Up 2 seconds (health: starting)   127.0.0.1:8000->8000/tcp
+(.venv) PS C:\Users\priye\OneDrive\Desktop\aegis-ai-decision-intelligence> ^C
+(.venv) PS C:\Users\priye\OneDrive\Desktop\aegis-ai-decision-intelligence> 
