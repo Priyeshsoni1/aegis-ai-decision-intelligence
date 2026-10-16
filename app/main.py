@@ -11,6 +11,9 @@ from app.core.config import get_settings
 from app.core.logging_config import configure_logging
 from app.db.database import initialize_database
 from app.api.routes.reports import router as reports_router
+from app.core.observability import observe_request
+
+
 configure_logging()
 settings = get_settings()
 
@@ -30,7 +33,7 @@ app = FastAPI(
     version="0.3.0",
     lifespan=lifespan,
 )
-
+app.middleware("http")(observe_request)
 app.include_router(documents_router)
 app.include_router(retrieval_router)
 app.include_router(research_router)

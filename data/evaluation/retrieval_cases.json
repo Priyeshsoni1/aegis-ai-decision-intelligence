@@ -1,0 +1,17 @@
+
+[
+  {
+    "case_id": "risk-001",
+    "query": "What are the access control risks?",
+    "relevant_chunk_ids": [
+      "REPLACE_WITH_A_REAL_CHUNK_ID"
+    ]
+  },
+  {
+    "case_id": "risk-002",
+    "query": "What are the major technology risks?",
+    "relevant_chunk_ids": [
+      "REPLACE_WITH_A_REAL_CHUNK_ID"
+    ]
+  }
+]
