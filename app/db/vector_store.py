@@ -18,7 +18,10 @@ def get_pg_connection() -> psycopg.Connection:
             "DATABASE_URL is not configured. Add your PostgreSQL URL to .env."
         )
 
-    connection = psycopg.connect(settings.database_url)
+    connection = psycopg.connect(
+    settings.database_url,
+    connect_timeout=10,
+)
 
     try:
         connection.execute("CREATE EXTENSION IF NOT EXISTS vector")

@@ -14,7 +14,7 @@ class WebResearchError(Exception):
 def search_web(query: str, max_results: int = 5) -> list[dict[str, str]]:
     """Search the web and return unique, structured source results."""
     try:
-        raw_results = DDGS().text(
+        raw_results = DDGS(timeout=10).text(
             query,
             region="in-en",
             safesearch="moderate",
