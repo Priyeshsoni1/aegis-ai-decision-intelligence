@@ -5,7 +5,6 @@ from pathlib import Path
 from app.evaluation.metrics import recall_at_k, reciprocal_rank
 from app.services.retrieval import search_chunks
 
-
 DATASET_PATH = Path("data/evaluation/retrieval_cases.json")
 TOP_K = 5
 

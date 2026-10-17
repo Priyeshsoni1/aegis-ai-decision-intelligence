@@ -1,8 +1,8 @@
 
 from fastapi.testclient import TestClient
 
-from app.main import app
 from app.api.routes import agent as agent_route
+from app.main import app
 from app.services.agent_graph import AgentConfigurationError
 
 client = TestClient(app)

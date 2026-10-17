@@ -4,8 +4,8 @@ import logging
 from fastapi import APIRouter, HTTPException
 
 from app.models.report_schemas import (
-    ReportGenerationRequest,
     DecisionReportResponse,
+    ReportGenerationRequest,
 )
 from app.services.agent_graph import AgentConfigurationError
 from app.services.decision_reports import (

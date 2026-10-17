@@ -3,16 +3,16 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+
 from app.api.routes.agent import router as agent_router
 from app.api.routes.documents import router as documents_router
+from app.api.routes.reports import router as reports_router
 from app.api.routes.research import router as research_router
 from app.api.routes.retrieval import router as retrieval_router
 from app.core.config import get_settings
 from app.core.logging_config import configure_logging
-from app.db.database import initialize_database
-from app.api.routes.reports import router as reports_router
 from app.core.observability import observe_request
-
+from app.db.database import initialize_database
 
 configure_logging()
 settings = get_settings()

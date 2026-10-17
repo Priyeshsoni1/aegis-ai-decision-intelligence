@@ -3,7 +3,6 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator
 
-
 Severity = Literal["low", "moderate", "high", "critical"]
 Confidence = Literal["low", "moderate", "high"]
 Priority = Literal["low", "medium", "high", "urgent"]
